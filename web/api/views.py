@@ -3,9 +3,10 @@ from datetime import datetime
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView
+from rest_framework.mixins import ListModelMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.viewsets import ReadOnlyModelViewSet, ViewSet
+from rest_framework.viewsets import GenericViewSet, ViewSet
 from web.api.filters import GazetteFilter
 from web.api.serializers import (
     CityCouncilAgendaSerializer,
@@ -16,10 +17,16 @@ from web.datasets.models import CityCouncilAgenda, CityCouncilAttendanceList, Ga
 
 
 class HealthCheckView(ViewSet):
+    """
+    Indica que a API está disponível.
+    """
+
     permission_classes = [AllowAny]
 
     def list(self, request):
-        return Response({"status": "available", "time": datetime.now()})
+        return Response(
+            status=204, data={"status": "available", "time": datetime.now()}
+        )
 
 
 class CityCouncilAgendaView(ListAPIView):
@@ -66,7 +73,11 @@ class CityCouncilAttendanceListView(ListAPIView):
         return self.queryset.filter(**kwargs)
 
 
-class GazetteView(ReadOnlyModelViewSet):
+class GazetteView(ListModelMixin, GenericViewSet):
+    """
+    Diários oficiais dos municípios.
+    """
+
     queryset = Gazette.objects.all()
     serializer_class = GazetteSerializer
     filterset_class = GazetteFilter
