@@ -38,6 +38,7 @@ class Common(Configuration):
         "web.datasets.apps.DatasetsConfig",
         "rest_framework",
         "simple_history",
+        "graphene_django",
     ]
 
     MIDDLEWARE = [
@@ -135,6 +136,8 @@ class Common(Configuration):
         "ACCESS_TOKEN_LIFETIME": timedelta(minutes=ACCESS_TOKEN_LIFETIME_IN_MINUTES),
         "REFRESH_TOKEN_LIFETIME": timedelta(minutes=REFRESH_TOKEN_LIFETIME_IN_MINUTES),
     }
+
+    GRAPHENE = {"SCHEMA": "web.schema.schema"}
 
 
 class Dev(Common):
