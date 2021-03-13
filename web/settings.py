@@ -137,7 +137,7 @@ class Common(Configuration):
         "REFRESH_TOKEN_LIFETIME": timedelta(minutes=REFRESH_TOKEN_LIFETIME_IN_MINUTES),
     }
 
-    GRAPHENE = {"SCHEMA": "web.schema.schema"}
+    GRAPHENE = {"SCHEMA": "web.schema.schema", "SCHEMA_INDENT": 4}
 
 
 class Dev(Common):

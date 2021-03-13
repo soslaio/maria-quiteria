@@ -26,7 +26,7 @@ def convert_json_field_to_string(field, registry=None):
 class FileType(DjangoObjectType):
     class Meta:
         model = File
-        fields = ("id", "url", "content")
+        fields = ("id", "url", "content", "content_type")
 
 
 class CityCouncilAgendaType(DjangoObjectType):
